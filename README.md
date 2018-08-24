@@ -1,4 +1,4 @@
-# CentOS7-CIS
+# CentOS7-CIS - v2.2.0 - Latest
 
 ## CentOS 7 - CIS Benchmark Hardening Script
 
