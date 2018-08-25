@@ -461,12 +461,69 @@
       - rule_6.2.9
 
 - name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
-  command: /bin/true
+  copy:
+    src: scripts/6.2.10.sh
+    dest: /opt/6.2.10.sh
+    owner: root
+    group: root
+    mode: 0700
+  ignore_errors: "{{ ansible_check_mode }}"
   tags:
       - level1
       - level2
       - patch
       - rule_6.2.10
+
+- name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
+  shell: /opt/6.2.10.sh
+  args:
+    executable: /bin/bash
+  register: user_dot_files
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.10
+
+- name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
+  debug:
+    var: user_dot_files.stdout_lines
+  when:
+    - not ansible_check_mode
+    - user_dot_files is defined
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.10
+
+- name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
+  debug:
+    msg: "PASS | 6.2.10 | Users' dot files are not group or world writable."
+  when:
+    - user_dot_files.stdout == ""
+    - not ansible_check_mode
+    - user_dot_files is defined
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.10
+
+- name: "SCORED | 6.2.10 | PATCH | Ensure users' dot files are not group or world writable"
+  file:
+    path: /opt/6.2.10.sh
+    owner: root
+    group: root
+    state: absent
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.10                 
 
 - name: "SCORED | 6.2.11 | PATCH | Ensure no users have .forward files"
   file:
