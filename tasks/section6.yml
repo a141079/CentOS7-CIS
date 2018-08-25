@@ -198,7 +198,63 @@
       - rule_6.2.5
 
 - name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
-  command: /bin/true
+  copy:
+    src: scripts/6.2.6.sh
+    dest: /opt/6.2.6.sh
+    owner: root
+    group: root
+    mode: 0700
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.6
+
+- name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
+  shell: /opt/6.2.6.sh
+  args:
+    executable: /bin/bash
+  register: root_path_integrity
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.6
+
+- name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
+  debug:
+    var: root_path_integrity.stdout_lines
+  when:
+    - root_path_integrity.stdout != ""
+    - not ansible_check_mode
+    - root_path_integrity is defined
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.6
+
+- name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
+  debug:
+    msg: "PASS | 6.2.6 | root PATH integrity"
+  when:
+    - root_path_integrity.stdout == ""
+    - root_path_integrity is defined
+    - not ansible_check_mode
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.6
+
+- name: "SCORED | 6.2.6 | PATCH | Ensure root PATH Integrity"
+  file:
+    path: /opt/6.2.6.sh
+    owner: root
+    group: root
+    state: absent
   tags:
       - level1
       - level2
@@ -206,7 +262,64 @@
       - rule_6.2.6
 
 - name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
-  command: /bin/true
+  copy:
+    src: scripts/6.2.7.sh
+    dest: /opt/6.2.7.sh
+    owner: root
+    group: root
+    mode: 0700
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.7
+
+- name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
+  shell: /opt/6.2.7.sh
+  args:
+    executable: /bin/bash
+  register: home_directories_exist
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.7
+
+- name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
+  debug:
+    var: home_directories_exist.stdout_lines
+  when:
+    - home_directories_exist.stdout != ""
+    - not ansible_check_mode
+    - home_directories_exist is defined
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.7
+
+- name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
+  debug:
+    msg: "PASS | 6.2.7 | All users' home directories exist."
+  when:
+    - home_directories_exist.stdout == ""
+    - home_directories_exist is defined
+    - not ansible_check_mode
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.7
+
+- name: "SCORED | 6.2.7 | PATCH | Ensure all users' home directories exist"
+  file:
+    path: /opt/6.2.7.sh
+    owner: root
+    group: root
+    state: absent
   tags:
       - level1
       - level2
@@ -214,7 +327,69 @@
       - rule_6.2.7
 
 - name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
-  command: /bin/true
+  copy:
+    src: scripts/6.2.8.sh
+    dest: /opt/6.2.8.sh
+    owner: root
+    group: root
+    mode: 0700
+  when: centos7cis_modify_user_homes
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.8
+
+- name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
+  shell: /opt/6.2.8.sh
+  args:
+    executable: /bin/bash
+  register: home_directories_permissions
+  when: centos7cis_modify_user_homes
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.8
+
+- name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
+  debug:
+    var: home_directories_permissions.stdout_lines
+  when:
+    - centos7cis_modify_user_homes
+    - not ansible_check_mode
+    - home_directories_permissions is defined
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.8
+
+- name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
+  debug:
+    msg: "PASS | 6.2.8 | Users' home directories permissions are 750 or more restrictive."
+  when:
+    - home_directories_permissions.stdout == ""
+    - centos7cis_modify_user_homes
+    - home_directories_permissions is defined
+    - not ansible_check_mode
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.8
+
+- name: "SCORED | 6.2.8 | PATCH | Ensure users' home directories permissions are 750 or more restrictive"
+  file:
+    path: /opt/6.2.8.sh
+    owner: root
+    group: root
+    state: absent
+  when: centos7cis_modify_user_homes
+  ignore_errors: "{{ ansible_check_mode }}"
   tags:
       - level1
       - level2
@@ -222,7 +397,63 @@
       - rule_6.2.8
 
 - name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
-  command: /bin/true
+  copy:
+    src: scripts/6.2.9.sh
+    dest: /opt/6.2.9.sh
+    owner: root
+    group: root
+    mode: 0700
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.9
+
+- name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
+  shell: /opt/6.2.9.sh
+  args:
+    executable: /bin/bash
+  register: home_directories_own
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.9
+
+- name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
+  debug:
+    var: home_directories_own.stdout_lines
+  when:
+    - not ansible_check_mode
+    - home_directories_own is defined
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.9
+
+- name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
+  debug:
+    msg: "PASS | 6.2.9 | Users' own their home directories."
+  when:
+    - home_directories_own is defined
+    - home_directories_own.stdout == ""
+    - not ansible_check_mode
+  ignore_errors: "{{ ansible_check_mode }}"
+  tags:
+      - level1
+      - level2
+      - patch
+      - rule_6.2.9
+
+- name: "SCORED | 6.2.9 | PATCH | Ensure users own their home directories"
+  file:
+    path: /opt/6.2.9.sh
+    owner: root
+    group: root
+    state: absent
   tags:
       - level1
       - level2

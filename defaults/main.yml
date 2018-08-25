@@ -128,6 +128,8 @@ centos7cis_password_expiration_90days: false
 
 centos7_cis_all_sys_accounts_non_login: false
 
+centos7cis_modify_user_homes: false
+
 centos7cis_vartmp:
     source: /tmp
     fstype: none
