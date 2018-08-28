@@ -63,6 +63,8 @@ centos7cis_syslog_ng_loghost_address: INSERT_DNS_NAME_HERE
 centos7cis_bootloader_password: random
 centos7cis_set_boot_pass: false
 
+centos7cis_yum_update: false
+
 # System network parameters (host only OR host and router)
 centos7cis_is_router: false
 
