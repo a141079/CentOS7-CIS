@@ -697,13 +697,14 @@
       - patch
       - rule_1.7.2
 
-# - name: "NOTSCORED | 1.8 | PATCH | Ensure updates, patches, and additional security software are installed"
-  # yum:
-      # name: "*"
-      # state: latest
-  # tags:
-      # - level1
-      # - level2
-      # - notscored
-      # - patch
-      # - rule_1.8
+- name: "NOTSCORED | 1.8 | PATCH | Ensure updates, patches, and additional security software are installed"
+  yum:
+      name: "*"
+      state: latest
+  when: centos7cis_yum_update
+  tags:
+      - level1
+      - level2
+      - notscored
+      - patch
+      - rule_1.8
